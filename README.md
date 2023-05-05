@@ -55,7 +55,7 @@ git clone https://github.com/nhlinh123/betosapo-api.git
 Change to the newly downloaded directory with
 
 ```sh
-cd node-mysql-jwt-auth
+cd betosapo-api
 ```
 
 Rename the file named `.env.example` to `.env` and update the variable values with valid ones
