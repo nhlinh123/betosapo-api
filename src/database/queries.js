@@ -1,19 +1,20 @@
-const { DB_NAME } = require('../utils/secrets')
+const { DB_NAME } = require("../utils/secrets");
 
 const createDB = `CREATE DATABASE IF NOT EXISTS ${DB_NAME} CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;`;
 
 const dropDB = `DROP DATABASE IF EXISTS ${DB_NAME}`;
 
-const createTableEmployer = `
-CREATE TABLE IF NOT EXISTS Employers (
+const createTableUsers = `
+CREATE TABLE IF NOT EXISTS Users (
     Id BIGINT PRIMARY KEY AUTO_INCREMENT,
     CreatedDate TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
     Email VARCHAR(255) NOT NULL UNIQUE,
     Password VARCHAR(255) NOT NULL,
     CompanyName VARCHAR(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-    PhoneNumber VARCHAR(20) NOT NULL
+    PhoneNumber VARCHAR(20) NOT NULL,
+    Type VARCHAR(10) NOT NULL 
 );
-`;
+`; // Type = EMPLOYER - EMPLOYEE
 
 const createTableJobs = `
 CREATE TABLE IF NOT EXISTS Jobs (
@@ -25,8 +26,8 @@ CREATE TABLE IF NOT EXISTS Jobs (
     Salary VARCHAR(20) NOT NULL,
     Position VARCHAR(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
     JobType VARCHAR(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-    EmployerId BIGINT NOT NULL,
-    FOREIGN KEY (EmployerId) REFERENCES Employers(Id),
+    UserId BIGINT NOT NULL,
+    FOREIGN KEY (UserId) REFERENCES Users(Id),
     PicturePath VARCHAR(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 )
 `;
@@ -44,20 +45,15 @@ CREATE TABLE IF NOT EXISTS Applied (
 )
 `;
 
-const createNewEmployerQuery = `
-INSERT INTO Employers VALUE(null, NOW(), ?, ?, ?, ?);
-`;
-
-const findEmployerByEmailQuery = `
-SELECT * FROM Employers WHERE Email = ?
+const initDataUser = `
+    INSERT INTO Users VALUE(null, NOW(), 'nhlinh123@gmail.com', '$2a$10$MmhCmZwqahGpCdaScWOvGeXY4AX/uaNHleI47x1B/e2qtCoBokehC', '合同会社A to Z', '0978346896', 'EMPLOYER');
 `;
 
 module.exports = {
-    createDB,
-    dropDB,
-    createTableEmployer,
-    createTableJobs,
-    createTableApplied,
-    createNewEmployerQuery,
-    findEmployerByEmailQuery
+  createDB,
+  dropDB,
+  createTableUsers,
+  createTableJobs,
+  createTableApplied,
+  initDataUser,
 };
