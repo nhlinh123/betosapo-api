@@ -123,5 +123,6 @@ dist
 !.vscode/extensions.json
 
 **/.DS_Store
-*.log.json
+package-lock.json
 *.conf
+

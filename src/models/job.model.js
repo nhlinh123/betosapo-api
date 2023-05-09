@@ -1,5 +1,5 @@
 const db = require('../config/db.config');
-const logger = require('../utils/logger');
+const { logger } = require('../utils/logger');
 const { createNewJobRepo } = require('../repositories/job.repository');
 class Job {
   constructor(
@@ -31,6 +31,7 @@ class Job {
   }
 
   static create(newJob, cb) {
+    logger.info('models', JSON.stringify(newJob));
     db.query(
       createNewJobRepo,
       [
@@ -49,7 +50,6 @@ class Job {
       ],
       (err, res) => {
         if (err) {
-          console.log(res);
           logger.error(err.message);
           cb(err, null);
           return;

@@ -1,4 +1,4 @@
-const uploadFile = require('../middlewares/upload');
+const uploadFile = require('../middlewares/job.middleware');
 const fs = require('fs');
 
 const upload = async (req, res) => {

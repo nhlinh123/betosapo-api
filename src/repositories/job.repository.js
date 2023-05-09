@@ -1,21 +1,37 @@
 const createNewJobRepo = `
-INSERT INTO Jobs VALUE(
-    null,
-     NOW(), -- created date
-     null, -- updated date
-      ?, -- title
-       ?, -- description
-        ?, -- company name
-         ?, -- location
-          ?, -- salary
-          ?, -- number
-          ?, -- position
-          ?,  -- job type part time full time
-          ?, -- status INPROCESSING COMPLETED 
-          ?, -- userId
-          ?, -- categoryId
-          ? -- Picture path 
-    );
+INSERT INTO Jobs (
+  Id,
+  CreatedDate,
+  UpdatedDate,
+  Title,
+  Description,
+  CompanyName,
+  Location,
+  Salary,
+  Number,
+  Position,
+  JobType,
+  Status,
+  UserId,
+  CategoryId,
+  PicturePath
+) VALUES (
+  null,
+  NOW(),
+  null,
+  ?,
+  ?,
+  ?,
+  ?,
+  ?,
+  ?,
+  ?,
+  ?,
+  ?,
+  ?,
+  ?,
+  ?
+);
 `;
 
 // const findJobs = `
