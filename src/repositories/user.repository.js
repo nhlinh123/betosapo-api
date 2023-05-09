@@ -1,5 +1,5 @@
 const createNewEmployerQuery = `
-INSERT INTO Users VALUE(null, NOW(), ?, ?, ?, ?, ?);
+INSERT INTO Users VALUE(null, NOW(), null , ?, ?, ?, ?, ?);
 `;
 
 const findEmployerByEmailQuery = `

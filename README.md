@@ -108,8 +108,8 @@ npm run start:dev
     │   ├── asyncHandler.js
     │   ├── checkEmail.js
     │   └── validatorHandler.js
-    ├── models
-    │   └── user.model.js
+    ├── services
+    │   └── user.service.js
     ├── routes
     │   └── auth.route.js
     ├── utils

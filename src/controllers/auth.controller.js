@@ -1,9 +1,9 @@
-const User = require("../models/user.model");
+const User = require('../services/user.service');
 const {
   hash: hashPassword,
   compare: comparePassword,
-} = require("../utils/password");
-const { generate: generateToken } = require("../utils/token");
+} = require('../utils/password');
+const { generate: generateToken } = require('../utils/token');
 
 exports.signup = (req, res) => {
   const { email, password, companyname, phonenumber, type } = req.body;
@@ -21,14 +21,14 @@ exports.signup = (req, res) => {
     if (err) {
       res.status(500).send({
         code: 500,
-        status: "error",
+        status: 'error',
         message: err.message,
       });
     } else {
       const token = generateToken(data.id);
       res.status(201).send({
         code: 201,
-        status: "success",
+        status: 'success',
         data: {
           token,
           data,
@@ -40,18 +40,18 @@ exports.signup = (req, res) => {
 
 exports.signin = (req, res) => {
   const { email, password } = req.body;
-  console.log("controller", req.body);
+  console.log('controller', req.body);
   User.findByEmail(email.trim(), (err, data) => {
     if (err) {
-      if (err.kind === "not_found") {
+      if (err.kind === 'not_found') {
         res.status(404).send({
-          status: "error",
+          status: 'error',
           message: `User with email ${email} was not found`,
         });
         return;
       }
       res.status(500).send({
-        status: "error",
+        status: 'error',
         message: err.message,
       });
       return;
@@ -60,7 +60,7 @@ exports.signin = (req, res) => {
       if (comparePassword(password.trim(), data.Password)) {
         const token = generateToken(data.id);
         res.status(200).send({
-          status: "success",
+          status: 'success',
           data: {
             token,
             email: data.Email,
@@ -71,8 +71,8 @@ exports.signin = (req, res) => {
         return;
       }
       res.status(401).send({
-        status: "error",
-        message: "Incorrect password",
+        status: 'error',
+        message: 'Incorrect password',
       });
     }
   });
