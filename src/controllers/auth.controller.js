@@ -66,6 +66,7 @@ exports.signin = (req, res) => {
             email: data.Email,
             companyname: data.CompanyName,
             phonenumber: data.PhoneNumber,
+            id: data.Id,
           },
         });
         return;
