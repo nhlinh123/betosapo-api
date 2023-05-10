@@ -4,6 +4,7 @@ const cors = require('cors');
 
 const authRoute = require('./routes/auth.route');
 const jobRoute = require('./routes/job.route');
+const categoryRoute = require('./routes/category.route');
 
 const { httpLogStream } = require('./utils/logger');
 global.__basedir = __dirname;
@@ -36,6 +37,7 @@ app.use(
 
 app.use('/api/auth', authRoute);
 app.use('/api/job', jobRoute);
+app.use('/api/category', categoryRoute);
 
 app.get('/', (req, res) => {
   res.status(200).send({

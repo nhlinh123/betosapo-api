@@ -33,11 +33,6 @@ INSERT INTO Jobs (
   ?
 );
 `;
-
-// const findJobs = `
-// SELECT * FROM Jobs WHERE Email = ?
-// `;
-
 module.exports = {
   createNewJobRepo,
   // findJobs,
