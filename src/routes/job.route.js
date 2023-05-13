@@ -8,4 +8,7 @@ router
   .route('/create')
   .post(verifyToken, asyncHandler(jobController.createJob));
 
+router.route('/getNewestJobs').get(asyncHandler(jobController.getNew8Jobs));
+router.route('/getJobsByType').post(asyncHandler(jobController.getJobsByType));
+
 module.exports = router;

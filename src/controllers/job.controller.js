@@ -58,7 +58,59 @@ exports.createJob = async (req, res) => {
   } catch (err) {
     console.log(err);
     res.status(500).send({
-      message: `Could not upload the file: ${req.file.originalname}. ${err}`,
+      message: `Something went wrong!`,
+    });
+  }
+};
+
+exports.getNew8Jobs = (req, res) => {
+  try {
+    Job.getNew8Jobs((err, data) => {
+      if (err) {
+        res.status(500).send({
+          code: 500,
+          status: 'error',
+          message: err.message,
+        });
+      } else {
+        res.status(200).send({
+          code: 200,
+          status: data.status,
+          data: data?.res,
+        });
+      }
+    });
+  } catch (e) {
+    console.log(err);
+    res.status(500).send({
+      message: `Something went wrong!`,
+    });
+  }
+};
+
+exports.getJobsByType = (req, res) => {
+  try {
+    const { body } = req;
+    console.log(body);
+    Job.getJobsByType(body, (err, data) => {
+      if (err) {
+        res.status(500).send({
+          code: 500,
+          status: 'error',
+          message: err.message,
+        });
+      } else {
+        res.status(200).send({
+          code: 200,
+          status: data.status,
+          data: data?.res,
+        });
+      }
+    });
+  } catch (e) {
+    console.log(err);
+    res.status(500).send({
+      message: `Something went wrong!`,
     });
   }
 };

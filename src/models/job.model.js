@@ -1,6 +1,10 @@
 const db = require('../config/db.config');
 const { logger } = require('../utils/logger');
-const { createNewJobRepo } = require('../repositories/job.repository');
+const {
+  createNewJobRepo,
+  getNew8Jobs,
+  getJobsByType,
+} = require('../repositories/job.repository');
 class Job {
   constructor(
     title,
@@ -59,6 +63,32 @@ class Job {
         });
       }
     );
+  }
+
+  static getNew8Jobs(cb) {
+    db.query(getNew8Jobs, (err, res) => {
+      if (err) {
+        logger.error(err.message);
+        cb(err, null);
+      }
+      cb(null, {
+        res,
+      });
+    });
+  }
+
+  static getJobsByType(req, cb) {
+    logger.info('req', JSON.stringify(req));
+    db.query(getJobsByType, [req.type, req.limit, req.offset], (err, res) => {
+      if (err) {
+        logger.error(err.message);
+        cb(err, null);
+      }
+      console.log(res);
+      cb(null, {
+        res,
+      });
+    });
   }
 }
 

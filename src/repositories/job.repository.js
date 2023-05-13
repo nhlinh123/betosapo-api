@@ -33,7 +33,19 @@ INSERT INTO Jobs (
   ?
 );
 `;
+
+const getNew8Jobs = `
+    SELECT * FROM Jobs
+    ORDER BY CreatedDate DESC
+    LIMIT 8
+`;
+
+const getJobsByType = `
+    SELECT * FROM Jobs WHERE JobType = ? ORDER BY CreatedDate DESC LIMIT ? OFFSET ? ;
+`;
+
 module.exports = {
   createNewJobRepo,
-  // findJobs,
+  getNew8Jobs,
+  getJobsByType,
 };

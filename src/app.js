@@ -14,7 +14,10 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static('public'));
-app.use('/uploads', express.static(__dirname + '/resources/assets/uploads'));
+app.use(
+  '/resources/static/assets/uploads',
+  express.static(__dirname + '/resources/static/assets/uploads')
+);
 
 app.use(morgan('dev'));
 app.use(morgan('combined', { stream: httpLogStream }));

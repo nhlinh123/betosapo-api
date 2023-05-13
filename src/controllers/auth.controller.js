@@ -31,6 +31,7 @@ exports.signup = (req, res) => {
         status: 'success',
         data: {
           token,
+          expiresIn: '1d',
           data,
         },
       });
