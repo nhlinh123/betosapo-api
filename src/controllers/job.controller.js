@@ -114,3 +114,31 @@ exports.getJobsByType = (req, res) => {
     });
   }
 };
+
+exports.searchJobsByTypeAndTitle = (req, res) => {
+  try {
+    const { body } = req;
+    Job.searchJobsByTypeAndTitle(body, (err, data) => {
+      if (err) {
+        res.status(500).send({
+          code: 500,
+          status: 'error',
+          message: err.message,
+        });
+      } else {
+        res.status(200).send({
+          code: 200,
+          status: data.status,
+          data: data?.res,
+          total: data?.total,
+          left: data?.left,
+        });
+      }
+    });
+  } catch (e) {
+    console.log(err);
+    res.status(500).send({
+      message: `Something went wrong!`,
+    });
+  }
+};

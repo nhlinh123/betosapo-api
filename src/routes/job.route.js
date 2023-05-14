@@ -10,5 +10,8 @@ router
 
 router.route('/getNewestJobs').get(asyncHandler(jobController.getNew8Jobs));
 router.route('/getJobsByType').post(asyncHandler(jobController.getJobsByType));
+router
+  .route('/searchJobsByTypeAndTitle')
+  .post(asyncHandler(jobController.searchJobsByTypeAndTitle));
 
 module.exports = router;

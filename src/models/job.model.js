@@ -4,6 +4,7 @@ const {
   createNewJobRepo,
   getNew8Jobs,
   getJobsByType,
+  searchJobsByTypeAndTitle,
 } = require('../repositories/job.repository');
 class Job {
   constructor(
@@ -89,6 +90,51 @@ class Job {
         res,
       });
     });
+  }
+
+  static searchJobsByTypeAndTitle(req, cb) {
+    logger.info('req', JSON.stringify(req));
+    let query = `SELECT COUNT(*) AS total FROM Jobs `;
+    query = this.addQueryForSearchJobs(query, req);
+    db.query(query, (err, countResult) => {
+      if (err) {
+        logger.error(err.message);
+        cb(err, null);
+        return;
+      }
+      const total = countResult[0].total;
+      let searchQuery = `SELECT * FROM Jobs `;
+      searchQuery = this.addQueryForSearchJobs(searchQuery, req);
+      searchQuery += 'ORDER BY CreatedDate DESC ';
+      searchQuery += `LIMIT ${req.limit} OFFSET ${req.offset}`;
+      db.query(searchQuery, (err, searchResult) => {
+        if (err) {
+          logger.error(err.message);
+          cb(err, null);
+          return;
+        }
+        const left = total - (req.offset + searchResult.length);
+        cb(null, {
+          total,
+          left,
+          res: searchResult,
+        });
+      });
+    });
+  }
+
+  static addQueryForSearchJobs(query, req) {
+    if (req.categoryId && req.categoryId !== 0) {
+      query += ` WHERE CategoryId = ${req.categoryId} `;
+    }
+    if (req.title && req.title !== '') {
+      if (query.includes('WHERE')) {
+        query += ` AND Title LIKE '%${req.title}%' `;
+      } else {
+        query += ` WHERE Title LIKE '%${req.title}%' `;
+      }
+    }
+    return query;
   }
 }
 
