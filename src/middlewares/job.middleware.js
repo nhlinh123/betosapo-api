@@ -27,7 +27,7 @@ let readFormData = multer({
   { name: 'status', maxCount: 1 },
   { name: 'userId', maxCount: 1 },
   { name: 'categoryId', maxCount: 1 },
-  { name: 'files', maxCount: 10 },
+  { name: 'files', maxCount: 11 },
 ]);
 
 let jobMiddleware = util.promisify(readFormData);
