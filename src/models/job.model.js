@@ -5,6 +5,7 @@ const {
   getNew8Jobs,
   getJobsByType,
   applyJob,
+  getAllJobs,
 } = require('../repositories/job.repository');
 class Job {
   constructor(
@@ -155,6 +156,17 @@ class Job {
         });
       }
     );
+  }
+
+  static getAllJobs(cb) {
+    db.query(getAllJobs, (err, res) => {
+      if (err) {
+        logger.error(err.message);
+        cb(err, null);
+        return;
+      }
+      cb(null, res);
+    });
   }
 }
 

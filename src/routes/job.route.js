@@ -14,5 +14,7 @@ router
   .route('/searchJobsByTypeAndTitle')
   .post(asyncHandler(jobController.searchJobsByTypeAndTitle));
 router.route('/apply').post(asyncHandler(jobController.apply));
+router.route('/getAllJobs').get(asyncHandler(jobController.getAllJobs));
+router.route('/getAllApplied').post(asyncHandler(jobController.getAllApplied));
 
 module.exports = router;

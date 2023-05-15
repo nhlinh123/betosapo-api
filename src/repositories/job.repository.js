@@ -49,9 +49,14 @@ const applyJob = `
     VALUES (null, NOW(),?, ?, ?, ?, ?);
 `;
 
+const getAllJobs = `
+    SELECT Id, Title FROM Jobs WHERE Status = 'OPEN' ORDER BY CreatedDate DESC;
+`;
+
 module.exports = {
   createNewJobRepo,
   getNew8Jobs,
   getJobsByType,
   applyJob,
+  getAllJobs,
 };

@@ -180,3 +180,53 @@ exports.apply = async (req, res) => {
     });
   }
 };
+
+exports.getAllJobs = (req, res) => {
+  try {
+    Job.getAllJobs((err, data) => {
+      if (err) {
+        res.status(500).send({
+          code: 500,
+          status: 'error',
+          message: err.message,
+        });
+      } else {
+        res.status(200).send({
+          code: 200,
+          status: 'success',
+          data: data,
+        });
+      }
+    });
+  } catch (e) {
+    console.log(e);
+    res.status(500).send({
+      message: `Something went wrong!`,
+    });
+  }
+};
+
+exports.getAllApplied = (req, res) => {
+  try {
+    Apply.getAllApplied(req.body.jobId, (err, data) => {
+      if (err) {
+        res.status(500).send({
+          code: 500,
+          status: 'error',
+          message: err.message,
+        });
+      } else {
+        res.status(200).send({
+          code: 200,
+          status: 'success',
+          data,
+        });
+      }
+    });
+  } catch (e) {
+    console.log(e);
+    res.status(500).send({
+      message: `Something went wrong!`,
+    });
+  }
+};
