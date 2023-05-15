@@ -1,7 +1,7 @@
 const fs = require('fs');
 const { logger } = require('../utils/logger');
 exports.createDirectory = async () => {
-  const directory = __basedir + '\\resources\\static\\assets\\uploads';
+  const directory = __basedir + '\\resources\\static\\assets\\uploads\\cv';
 
   if (!fs.existsSync(directory)) {
     try {

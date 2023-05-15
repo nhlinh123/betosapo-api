@@ -4,7 +4,7 @@ const {
   createNewJobRepo,
   getNew8Jobs,
   getJobsByType,
-  searchJobsByTypeAndTitle,
+  applyJob,
 } = require('../repositories/job.repository');
 class Job {
   constructor(
@@ -74,6 +74,7 @@ class Job {
       }
       cb(null, {
         res,
+        status: 'success',
       });
     });
   }
@@ -135,6 +136,25 @@ class Job {
       }
     }
     return query;
+  }
+
+  static apply(info, cb) {
+    logger.info('models', JSON.stringify(info));
+    db.query(
+      applyJob,
+      [info.fullName, info.phoneNumber, info.email, info.path, info.jobId],
+      (err, res) => {
+        if (err) {
+          logger.error(err.message);
+          cb(err, null);
+          return;
+        }
+        cb(null, {
+          status: 'success',
+          data: res,
+        });
+      }
+    );
   }
 }
 

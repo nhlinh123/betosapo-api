@@ -1,6 +1,9 @@
 const Job = require('../models/job.model');
+const Apply = require('../models/apply.model');
 const jobMiddleware = require('../middlewares/job.middleware');
+const cvMiddleware = require('../middlewares/cv.middleware');
 const { createDirectory } = require('../utils/public-resource');
+const { logger } = require('../utils/logger');
 
 exports.createJob = async (req, res) => {
   try {
@@ -75,13 +78,13 @@ exports.getNew8Jobs = (req, res) => {
       } else {
         res.status(200).send({
           code: 200,
-          status: data.status,
+          status: data?.status,
           data: data?.res,
         });
       }
     });
   } catch (e) {
-    console.log(err);
+    console.log(e);
     res.status(500).send({
       message: `Something went wrong!`,
     });
@@ -137,6 +140,41 @@ exports.searchJobsByTypeAndTitle = (req, res) => {
     });
   } catch (e) {
     console.log(err);
+    res.status(500).send({
+      message: `Something went wrong!`,
+    });
+  }
+};
+
+exports.apply = async (req, res) => {
+  try {
+    await createDirectory();
+
+    await cvMiddleware(req, res);
+    const fullName = req.body.fullName;
+    const email = req.body.email;
+    const phoneNumber = req.body.phoneNumber;
+    const path = req.files.files.map((file) => file.path).toString();
+    const jobId = req.body.jobId;
+
+    const info = new Apply(fullName, phoneNumber, email, path, jobId);
+
+    Job.apply(info, (err, data) => {
+      if (err) {
+        res.status(500).send({
+          code: 500,
+          status: 'error',
+          message: err.message,
+        });
+      } else {
+        res.status(200).send({
+          code: 200,
+          status: data.status,
+        });
+      }
+    });
+  } catch (e) {
+    logger.error(e.message);
     res.status(500).send({
       message: `Something went wrong!`,
     });

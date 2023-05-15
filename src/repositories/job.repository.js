@@ -35,17 +35,23 @@ INSERT INTO Jobs (
 `;
 
 const getNew8Jobs = `
-    SELECT * FROM Jobs
-    ORDER BY CreatedDate DESC
+    SELECT * FROM Jobs WHERE Status = 'OPEN' 
+    ORDER BY CreatedDate DESC 
     LIMIT 8
 `;
 
 const getJobsByType = `
-    SELECT * FROM Jobs WHERE JobType = ? ORDER BY CreatedDate DESC LIMIT ? OFFSET ? ;
+    SELECT * FROM Jobs WHERE JobType = ? AND Status = 'OPEN' ORDER BY CreatedDate DESC LIMIT ? OFFSET ? ;
+`;
+
+const applyJob = `
+    INSERT INTO Applied (Id, CreatedDate,FullName, PhoneNumber, Email, Path, JobId)
+    VALUES (null, NOW(),?, ?, ?, ?, ?);
 `;
 
 module.exports = {
   createNewJobRepo,
   getNew8Jobs,
   getJobsByType,
+  applyJob,
 };
