@@ -25,7 +25,18 @@ exports.createJob = async (req, res) => {
     const status = req.body.status;
     const userId = req.body.userId;
     const categoryId = req.body.categoryId;
-    const picturePath = req.files.files.map((file) => file.path).toString();
+    const picturePath = req.files.files
+      .map((file, index) => {
+        const timestamp = Date.now();
+        const extension = file.originalname.split('.').pop();
+        const filename = `${timestamp}_${index}.${extension}`;
+        const filepath = `/var/www/static-contents/${filename}`;
+        // const filepath =
+        //   __basedir + `/resources/static/assets/uploads/${filename}`;
+        file.path = filepath;
+        return filepath;
+      })
+      .toString();
 
     const newJob = new Job(
       title,
