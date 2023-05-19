@@ -8,7 +8,7 @@ const { logger } = require('../utils/logger');
 exports.createJob = async (req, res) => {
   try {
     // check resource was create or not
-    await createDirectory();
+    // await createDirectory();
 
     // parse formData using multer
     await jobMiddleware(req, res);
@@ -148,7 +148,7 @@ exports.searchJobsByTypeAndTitle = (req, res) => {
 
 exports.apply = async (req, res) => {
   try {
-    await createDirectory();
+    // await createDirectory();
 
     await cvMiddleware(req, res);
     const fullName = req.body.fullName;
