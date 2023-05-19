@@ -15,12 +15,12 @@ exports.createJob = async (req, res) => {
 
     // Get the properties from the formData object
     const title = req.body.title;
-    const description = req.body.description;
-    const companyName = req.body.companyName;
-    const location = req.body.location;
-    const salary = req.body.salary;
+    const description = req.body.description.trim();
+    const companyName = req.body.companyName.trim();
+    const location = req.body.location.trim();
+    const salary = req.body.salary.trim();
     const number = req.body.number;
-    const position = req.body.position;
+    const position = req.body.position.trim();
     const jobType = req.body.jobType;
     const status = req.body.status;
     const userId = req.body.userId;
@@ -151,8 +151,8 @@ exports.apply = async (req, res) => {
     // await createDirectory();
 
     await cvMiddleware(req, res);
-    const fullName = req.body.fullName;
-    const email = req.body.email;
+    const fullName = req.body.fullName.trim();
+    const email = req.body.email.trim();
     const phoneNumber = req.body.phoneNumber;
     const path = req.files.files.map((file) => file.path).toString();
     const jobId = req.body.jobId;
