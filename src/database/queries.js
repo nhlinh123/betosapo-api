@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS Applied (
 `;
 
 const initDataUser = `
-    INSERT INTO Users VALUE(null, NOW(), null , 'nhlinh123@gmail.com', '$2a$10$MmhCmZwqahGpCdaScWOvGeXY4AX/uaNHleI47x1B/e2qtCoBokehC', '合同会社A to Z', '0978346896', 'EMPLOYER');
+    INSERT INTO Users VALUE(null, NOW(), null , 'betosapo@gmail.com', '$2a$10$MmhCmZwqahGpCdaScWOvGeXY4AX/uaNHleI47x1B/e2qtCoBokehC', '合同会社A to Z', '0978346896', 'EMPLOYER');
 `;
 
 const initDataCategoryDelivery = `
