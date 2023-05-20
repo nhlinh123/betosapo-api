@@ -208,7 +208,7 @@ exports.getAllJobs = (req, res) => {
 
 exports.getAllApplied = (req, res) => {
   try {
-    Apply.getAllApplied(req.body.jobId, (err, data) => {
+    Apply.getAllApplied(req.body, (err, data) => {
       if (err) {
         res.status(500).send({
           code: 500,

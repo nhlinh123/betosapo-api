@@ -10,11 +10,28 @@ class Apply {
     this.jobId = Number(jobId);
   }
 
-  static getAllApplied(jobId = null, cb) {
-    let query = 'SELECT * FROM Applied';
-    const id = Number(jobId);
-    if (id && id !== 0 && id !== '0') {
-      query += ` WHERE jobId = ${jobId}`;
+  static getAllApplied(data, cb) {
+    const { jobId, categoryId, jobType } = data;
+    let query =
+      'select a.FullName, a.Email, a.PhoneNumber, a.Path, j.CompanyName, j.JobType, j.Position, c.Name as CategoryName from Applied as a ' +
+      'inner join Jobs as j on j.Id = a.JobId ' +
+      'inner join Categories as c on c.Id = j.CategoryId ';
+    if (jobId && jobId !== 0) {
+      query += ` WHERE j.Id = ${jobId}`;
+    }
+    if (categoryId && categoryId !== 0) {
+      if (query.includes('WHERE')) {
+        query += ` AND j.CategoryId = ${categoryId}`;
+      } else {
+        query += ` WHERE j.CategoryId = ${categoryId}`;
+      }
+    }
+    if (jobType && jobType !== '') {
+      if (query.includes('WHERE')) {
+        query += ` AND j.JobType = '${jobType}'`;
+      } else {
+        query += ` WHERE j.JobType = '${jobType}'`;
+      }
     }
     db.query(query, (err, result) => {
       if (err) {
