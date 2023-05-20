@@ -13,7 +13,7 @@ class Apply {
   static getAllApplied(data, cb) {
     const { jobId, categoryId, jobType } = data;
     let query =
-      'select a.FullName, a.Email, a.PhoneNumber, a.Path, j.CompanyName, j.JobType, j.Position, c.Name as CategoryName from Applied as a ' +
+      'select a.FullName, a.Email, a.PhoneNumber, a.Path, a.CreatedDate, j.CompanyName, j.JobType, j.Position, c.Name as CategoryName from Applied as a ' +
       'inner join Jobs as j on j.Id = a.JobId ' +
       'inner join Categories as c on c.Id = j.CategoryId ';
     if (jobId && jobId !== 0) {
@@ -33,6 +33,7 @@ class Apply {
         query += ` WHERE j.JobType = '${jobType}'`;
       }
     }
+    query += ' ORDER BY CreatedDate DESC';
     db.query(query, (err, result) => {
       if (err) {
         logger.error(err);
