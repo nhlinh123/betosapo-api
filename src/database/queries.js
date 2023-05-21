@@ -62,15 +62,21 @@ CREATE TABLE IF NOT EXISTS Applied (
 `;
 
 const initDataUser = `
-    INSERT INTO Users VALUE(null, NOW(), null , 'betosapo@gmail.com', '$2a$10$MmhCmZwqahGpCdaScWOvGeXY4AX/uaNHleI47x1B/e2qtCoBokehC', '合同会社A to Z', '0978346896', 'EMPLOYER');
+    INSERT INTO Users VALUE(null, NOW(), null , 'betosapo@gmail.com', '$2a$10$MmhCmZwqahGpCdaScWOvGeXY4AX/uaNHleI47x1B/e2qtCoBokehC', 'BETOSAPO', '09053110467', 'EMPLOYER');
 `;
 
-const initDataCategoryDelivery = `
-    INSERT INTO Categories VALUE(null, NOW(), null, '配達');
-`;
-
-const initDataCategoryRestaurantServices = `
-    INSERT INTO Categories VALUE(null, NOW(), null, 'レストランサービス');
+const initDataCategoryData = `
+    INSERT INTO betosapo.Categories (CreatedDate, Name)
+VALUES 
+    (NOW(), '配達'),
+    (NOW(), 'レストランサービス'),
+    (NOW(), 'ワークフロー管理'),
+    (NOW(), 'オフィス'),
+    (NOW(), '技術'),
+    (NOW(), 'ホテル'),
+    (NOW(), '工場'),
+    (NOW(), '商品の分類'),
+    (NOW(), '掃除');
 `;
 
 module.exports = {
@@ -81,6 +87,5 @@ module.exports = {
   createTableJobs,
   createTableApplied,
   initDataUser,
-  initDataCategoryDelivery,
-  initDataCategoryRestaurantServices,
+  initDataCategoryData,
 };

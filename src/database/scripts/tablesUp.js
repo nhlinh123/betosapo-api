@@ -5,8 +5,7 @@ const {
   createTableApplied,
   createTableCategories,
   initDataUser,
-  initDataCategoryDelivery,
-  initDataCategoryRestaurantServices,
+  initDataCategoryData,
 } = require('../queries');
 const connection = require('../../config/db.config');
 
@@ -46,18 +45,11 @@ const connection = require('../../config/db.config');
       logger.info('init data user admin');
     }
   });
-  connection.query(initDataCategoryDelivery, (err, _) => {
+  connection.query(initDataCategoryData, (err, _) => {
     if (err) {
       logger.error(err.message);
     } else {
       logger.info('init data delivery category');
-    }
-  });
-  connection.query(initDataCategoryRestaurantServices, (err, _) => {
-    if (err) {
-      logger.error(err.message);
-    } else {
-      logger.info('init data restaurant service category');
     }
     process.exit(0); // last table created then exit
   });
