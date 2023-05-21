@@ -176,7 +176,8 @@ exports.apply = async (req, res) => {
   } catch (e) {
     logger.error(e.message);
     res.status(500).send({
-      message: `Something went wrong!`,
+      message: e.message,
+      code: 500,
     });
   }
 };
